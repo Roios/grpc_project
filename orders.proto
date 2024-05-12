@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message Address {
+  string street = 1;
+  int64 number = 2;
+  string city = 3;
+  int64 postal_code = 4;
+}
+
+
+enum OrderType {
+  ONLINE = 0;
+  APP = 1;
+}
+
+message StartRequest {
+  string client_id = 1;
+  Address address = 2;
+  OrderType type = 3;
+  google.protobuf.Timestamp time = 4;
+}
+
+message StartResponse {
+  int64 order_id = 1;
+}
+
+service Orders {
+  rpc RegisterOrder(StartRequest) returns (StartResponse) {}
+}
