@@ -23,7 +23,7 @@ message StartRequest {
 }
 
 message StartResponse {
-  int64 order_id = 1;
+  string order_id = 1;
 }
 
 service Orders {

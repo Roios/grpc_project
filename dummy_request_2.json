@@ -1,0 +1,11 @@
+{
+    "client_id": "",
+    "address": {
+        "street": "Av. Liberdade",
+        "number": 25,
+        "city": "Lisboa",
+        "postal_code": 1600
+    },
+    "type": "APP",
+    "time": "2024-05-12T15:08:07.915156117+00:00"
+}
