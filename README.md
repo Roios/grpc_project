@@ -87,10 +87,12 @@ Now we have all the **gRPC** code needed for the server. The server code can be 
 In the `order.proto` we say that the method `RegisterOrder` exists but we didn't write it. In `orders_pb2_grpc.py`, the method `RegisterOrder` exists but it just says unimplemented. The real implementation is in `server.py`. So the first step is to override the methods of the service (check class `Orders`). Finally we can start the server (check `start_server`).
 
 <details>
-<summary>Side note</summary>
+<summary>Side note about grpcurl</summary>
 
 The implemented server has reflection. That allows the clients to query the server about what it can do and what it needs (methods and types).
-In our case is running in the localhost:888. From the command line you query the server.
+In our case is running in the localhost:888. From the command line you query the server. For that we need `grpcurl`. To install it run:
+
+`curl -sSL "https://github.com/fullstorydev/grpcurl/releases/download/v1.9.1/grpcurl_1.9.1_linux_x86_64.tar.gz" | sudo tar -xz -C /usr/local/bin`
 
 Lets query the services available (we know that we only have `Orders`):
 
@@ -107,6 +109,14 @@ And as expected we only have 1 method `Orders.RegisterOrder`. We can ask more in
 and
 
 `grpcurl -plaintext localhost:8888 describe .StartRequest`
+
+We can also test the server! Lets use 2 dummy request files, one good and another bad to raise an error.
+
+`grpcurl -plaintext -d @ localhost:8888 Orders.RegisterOrder < dummy_request.json`
+
+and
+
+`grpcurl -plaintext -d @ localhost:8888 Orders.RegisterOrder < dummy_request_2.json`
 
 </details>
 
