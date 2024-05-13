@@ -3,12 +3,13 @@ from uuid import uuid4
 
 import grpc
 import grpc._server
+from grpc_reflection.v1alpha import \
+    reflection  # for clients to query what the server can do
+
 import log
 import orders_pb2 as pb
 import orders_pb2_grpc as rpc
 import validate
-from grpc_reflection.v1alpha import \
-    reflection  # for clients to query what the server can do
 
 
 def new_order_id() -> None:
@@ -26,7 +27,7 @@ class Orders(rpc.OrdersServicer):
     def RegisterOrder(self, request, context):
         """ The real implementation of the RegisterOrder method. """
 
-        log.info('my request: %r', request)
+        log.info('request from client:\n%r', request)
         try:
             validate.start_request(request)
         except validate.Error as err:
@@ -36,6 +37,7 @@ class Orders(rpc.OrdersServicer):
             raise err
 
         order_id = new_order_id()
+
         return pb.StartResponse(order_id=order_id)
 
 

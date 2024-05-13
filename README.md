@@ -23,8 +23,8 @@ We are going to implement a simple supermarket order app.
 The idea is:
 
 - the client makes an order
-- the order is registered
-- the supermarket says if the order is ready
+- the order is sent the server
+- the client gets the order id
 
 ## Components
 
@@ -123,6 +123,12 @@ and
 ### gRPC Client
 
 The main goal of the client is to send requests to the server and receive answers.
+
+We need to create a class `Client` (check `client.py`). That class needs a channel and a stub. A channel provides a connection to a gRPC server on a specified host and port. A stub is a client-side proxy for the remote service.
+
+Once we have the basic client, we need to implement the client's code. It consists in preparing a request in the proper format to the server and receive the response. To do it properly, one must implement the "send request" with a timeout. That means that if the server takes too long to answer, we get an error.
+
+To run it, you must start initiate the `server.py`, otherwise you get the timeout error. Once the server is up and running, you can run `client.py`.
 
 # References
 
