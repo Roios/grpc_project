@@ -1,3 +1,6 @@
+from collections import namedtuple
+from datetime import datetime, timedelta
+
 import grpc
 
 import log
@@ -40,7 +43,7 @@ class Client:
                                postal_code=postal_code),
         )
         request.time.FromDatetime(time)
-        log.info('order started: %s', request)
+        log.info('order started:\n%s', request)
 
         # Call the method with a timeout
         try:
@@ -50,12 +53,35 @@ class Client:
             raise ClientError(f'{err.code()}: {err.details()}') from err
         return response.order_id
 
+    def update_order(self, events):
+
+        # The request to the server needs to be iterable
+        def generate_events():
+            for event in events:
+                request = pb.UpdateRequest(
+                    client_id=event.client_id,
+                    address=pb.Address(street=event.street,
+                                       number=event.number,
+                                       city=event.city,
+                                       postal_code=event.postal_code),
+                )
+                request.time.FromDatetime(event.time)
+                log.info('order updated:\n%s', request)
+                yield request
+
+        response = self.stub.UpdateOrder(generate_events())
+        # The response is not an iterable object (the streaming was from the client to the server and not the other way)
+        log.info('Received update response:\n%s', response.updated)
+
 
 def start_client(host, port):
     addr = f'{host}:{port}'
     # initialize a client
     client = Client(addr)
+    return client
 
+
+def send_request(client):
     # try a random request
     try:
         order_id = client.order_start(
@@ -71,11 +97,39 @@ def start_client(host, port):
     except ClientError as err:
         raise SystemExit(f'error: {err}')
 
-    return client
+
+def random_event_generator(count: int = 5) -> list:
+
+    AddressEvent = namedtuple('AddressEvent',
+                              'client_id street number city postal_code time')
+    time = datetime(2024, 5, 13, 18, 56)
+    new_events = []
+    for idx in range(count):
+        a_event = AddressEvent(client_id="123abc",
+                               street="Av. Liberdade",
+                               number=25 + idx,
+                               city="Lisboa",
+                               postal_code=1600,
+                               time=time)
+        new_events.append(a_event)
+        log.info('update %d:\n %s', idx, a_event)
+        time += timedelta(seconds=15)
+    return new_events
+
+
+def send_stream_request(client):
+    # try a set of random request
+    try:
+        new_events = random_event_generator()
+        client.update_order(new_events)
+    except ClientError as err:
+        raise SystemExit(f'error: {err}')
 
 
 if __name__ == '__main__':
-    from datetime import datetime
-
     import config
     client = start_client(config.host, config.port)
+    # sending one single request
+    send_request(client)
+    # sending a stream of requests
+    send_stream_request(client)

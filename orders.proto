@@ -26,6 +26,17 @@ message StartResponse {
   string order_id = 1;
 }
 
+message UpdateRequest {
+  string client_id = 1;
+  Address address = 2;
+  google.protobuf.Timestamp time = 3;
+}
+
+message UpdateResponse {
+  repeated bool updated = 1;
+}
+
 service Orders {
   rpc RegisterOrder(StartRequest) returns (StartResponse) {}
+  rpc UpdateOrder(stream UpdateRequest) returns (UpdateResponse) {}
 }

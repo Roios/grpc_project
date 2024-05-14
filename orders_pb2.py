@@ -15,21 +15,25 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0corders.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"L\n\x07\x41\x64\x64ress\x12\x0e\n\x06street\x18\x01 \x01(\t\x12\x0e\n\x06number\x18\x02 \x01(\x03\x12\x0c\n\x04\x63ity\x18\x03 \x01(\t\x12\x13\n\x0bpostal_code\x18\x04 \x01(\x03\"\x80\x01\n\x0cStartRequest\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12\x19\n\x07\x61\x64\x64ress\x18\x02 \x01(\x0b\x32\x08.Address\x12\x18\n\x04type\x18\x03 \x01(\x0e\x32\n.OrderType\x12(\n\x04time\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"!\n\rStartResponse\x12\x10\n\x08order_id\x18\x01 \x01(\t* \n\tOrderType\x12\n\n\x06ONLINE\x10\x00\x12\x07\n\x03\x41PP\x10\x01\x32:\n\x06Orders\x12\x30\n\rRegisterOrder\x12\r.StartRequest\x1a\x0e.StartResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0corders.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"L\n\x07\x41\x64\x64ress\x12\x0e\n\x06street\x18\x01 \x01(\t\x12\x0e\n\x06number\x18\x02 \x01(\x03\x12\x0c\n\x04\x63ity\x18\x03 \x01(\t\x12\x13\n\x0bpostal_code\x18\x04 \x01(\x03\"\x80\x01\n\x0cStartRequest\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12\x19\n\x07\x61\x64\x64ress\x18\x02 \x01(\x0b\x32\x08.Address\x12\x18\n\x04type\x18\x03 \x01(\x0e\x32\n.OrderType\x12(\n\x04time\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"!\n\rStartResponse\x12\x10\n\x08order_id\x18\x01 \x01(\t\"g\n\rUpdateRequest\x12\x11\n\tclient_id\x18\x01 \x01(\t\x12\x19\n\x07\x61\x64\x64ress\x18\x02 \x01(\x0b\x32\x08.Address\x12(\n\x04time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"!\n\x0eUpdateResponse\x12\x0f\n\x07updated\x18\x01 \x03(\x08* \n\tOrderType\x12\n\n\x06ONLINE\x10\x00\x12\x07\n\x03\x41PP\x10\x01\x32n\n\x06Orders\x12\x30\n\rRegisterOrder\x12\r.StartRequest\x1a\x0e.StartResponse\"\x00\x12\x32\n\x0bUpdateOrder\x12\x0e.UpdateRequest\x1a\x0f.UpdateResponse\"\x00(\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'orders_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_ORDERTYPE']._serialized_start=293
-  _globals['_ORDERTYPE']._serialized_end=325
+  _globals['_ORDERTYPE']._serialized_start=433
+  _globals['_ORDERTYPE']._serialized_end=465
   _globals['_ADDRESS']._serialized_start=49
   _globals['_ADDRESS']._serialized_end=125
   _globals['_STARTREQUEST']._serialized_start=128
   _globals['_STARTREQUEST']._serialized_end=256
   _globals['_STARTRESPONSE']._serialized_start=258
   _globals['_STARTRESPONSE']._serialized_end=291
-  _globals['_ORDERS']._serialized_start=327
-  _globals['_ORDERS']._serialized_end=385
+  _globals['_UPDATEREQUEST']._serialized_start=293
+  _globals['_UPDATEREQUEST']._serialized_end=396
+  _globals['_UPDATERESPONSE']._serialized_start=398
+  _globals['_UPDATERESPONSE']._serialized_end=431
+  _globals['_ORDERS']._serialized_start=467
+  _globals['_ORDERS']._serialized_end=577
 # @@protoc_insertion_point(module_scope)

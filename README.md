@@ -130,6 +130,24 @@ Once we have the basic client, we need to implement the client's code. It consis
 
 To run it, you must start initiate the `server.py`, otherwise you get the timeout error. Once the server is up and running, you can run `client.py`.
 
+### gRPC streaming
+
+Streaming allows us to send more than 1 message at the time. In other words, to send a continuous stream of messages from client/server to server/client. Stream can be in one way (unilateral) or both ways (bilateral).
+
+#### Unilateral
+
+Lets consider that the client can move so we want to update the address. The same way we created the `StartRequest` in the `orders.proto` file, we create the `UpdatedRequest`. We also have a new method called `UpdateOrder`. We generate the code as before:
+
+```
+python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. orders.proto
+```
+
+On the server side, we need to implement the `UpdateOrder` method.
+
+On the client side, we need to implement a method on the `Client` class that send multiple message, `update_order`.
+
+To run it, you must start initiate the `server.py`, otherwise you get the timeout error. Once the server is up and running, you can run `client.py`. It will first send one single request and after it will send a stream of requests.
+
 # References
 
 <https://grpc.io/>

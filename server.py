@@ -1,3 +1,4 @@
+import random
 from concurrent.futures import ThreadPoolExecutor  # needed to run the requests
 from uuid import uuid4
 
@@ -39,6 +40,14 @@ class Orders(rpc.OrdersServicer):
         order_id = new_order_id()
 
         return pb.StartResponse(order_id=order_id)
+
+    def UpdateOrder(self, request_iterator, context):
+        response_list = []
+        for request in request_iterator:
+            log.info('update:\n%s', request)
+            response_list.append(random.choice([True, False]))
+
+        return pb.UpdateResponse(updated=response_list)
 
 
 def start_server(host, port) -> grpc._server:
