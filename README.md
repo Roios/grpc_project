@@ -151,3 +151,8 @@ To run it, you must start initiate the `server.py`, otherwise you get the timeou
 # References
 
 <https://grpc.io/>
+
+
+## Closure
+
+The goal of this repo was achieved (basic hands-on with gRPC). This repo is closed.
